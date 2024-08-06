@@ -48,12 +48,15 @@ class Queue():
     def dequeue(self):
         if self.last == None:
             print("Queue Empty")
-            return
-        if self.last == self.first:
-            self.last = None
-        self.first = self.first.next
-        self.length -= 1
-        return
+            return None;
+        else:
+            temp =self.first
+            if self.last == self.first:
+                self.last = None
+            self.first = self.first.next
+            temp.next = None
+            self.length -= 1
+            return temp.data
 
 #Finally we'll create the print method which prints the elements of the queue in, well, a queue like format
     def print_queue(self):
@@ -69,6 +72,14 @@ class Queue():
                     print(f'{current_pointer.data}  <<--  ', end='')
                 current_pointer = current_pointer.next
             return
+        
+def reverse(q : Queue):
+    if q.isEmpty():
+        return
+    else:
+        temp  = q.dequeue()
+        reverse(q)
+        q.enqueue(temp)
 
 my_queue = Queue()
 my_queue.enqueue("This")
@@ -78,6 +89,11 @@ my_queue.enqueue("Queue")
 my_queue.print_queue()
 #This  <<--  is  <<--  a  <<--  Queue
 
+reverse(my_queue)
+
+print("Reversed Queue :")
+my_queue.print_queue()
+
 print(my_queue.peek())
 #This
 
@@ -86,11 +102,11 @@ my_queue.dequeue()
 my_queue.print_queue()
 #a  <<--  Queue
 
-print(my_queue.__dict__)
-#{'first': <__main__.Node object at 0x0000020CE99AED48>, 'last': <__main__.Node object at 0x0000020CE99AED88>, 'length': 2}
-print(my_queue.first)
-#<__main__.Node object at 0x000001A3F633ED48>
-print(my_queue.first.data)
+# print(my_queue.__dict__)
+# #{'first': <__main__.Node object at 0x0000020CE99AED48>, 'last': <__main__.Node object at 0x0000020CE99AED88>, 'length': 2}
+# print(my_queue.first)
+# #<__main__.Node object at 0x000001A3F633ED48>
+# print(my_queue.first.data)
 #a
 
 my_queue.dequeue()

@@ -213,16 +213,16 @@ def addTwoNumbers_reverse( l1: Node, l2: Node) -> Tuple[Node,int]:
         if l1 is None and l2 is None:
             return None,0
         else:
-            sum, carry = addTwoNumbers_reverse(l1.next, l2.next)
+            ref, carry = addTwoNumbers_reverse(l1.next, l2.next)
             # if any((l1, l2, carry)):
             #     l1 = l1 if l1 else Node(0)
             #     l2 = l2 if l2 else Node(0)
-            _ = l1.data + l2.data + carry
-            digit, carry = _ % 10, _ // 10
-            answer = Node(digit)
-            answer.next = sum
-                 
-            return answer, carry
+            val = l1.data + l2.data + carry
+            digit, carry = val % 10, val // 10
+            n = Node(digit)
+            n.next = ref
+            # a,b = b,a    
+            return n, carry
 
 
 
@@ -304,8 +304,8 @@ while sum is not None:
     sum = sum.next
 print()
 print("Adding two LL reverse: ")
-revsum,car = addTwoNumbers_reverse(ll3.getHead(), ll4.getHead())
+ref,car = addTwoNumbers_reverse(ll3.getHead(), ll4.getHead())
 print(car, end=" ")
-while revsum is not None:
+while ref is not None:
     print(revsum.data, end=" ")
     revsum = revsum.next
